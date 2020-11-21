@@ -6,7 +6,7 @@ export class ProductDbMockRepository implements LoadProductByIdRepository {
     return Promise.resolve({
       id: 1,
       name: 'Product 1',
-      description: 'Desc product 1',
+      description: 'Desc product 12',
       price: 10,
     });
   }
