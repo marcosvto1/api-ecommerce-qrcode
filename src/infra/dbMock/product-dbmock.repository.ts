@@ -8,6 +8,7 @@ export class ProductDbMockRepository implements LoadProductByIdRepository {
       name: 'Product 1',
       description: 'Desc product 12',
       price: 10,
+      group: {id: 1, name: 'Iphone'}
     });
   }
 }
