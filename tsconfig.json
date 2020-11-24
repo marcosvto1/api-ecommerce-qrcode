@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "outDir": "dist", // aonde vai gerar os arquivos js,
     "module": "commonjs", // vai gerar usando os imports usando require
     "target": "es2019", // Gerar com padrão do es2019 
