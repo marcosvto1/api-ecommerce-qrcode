@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, products } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
@@ -12,7 +12,15 @@ function getAll() {
   return prisma.products.findMany();
 } 
 
+async function create(data: products): Promise<products> {
+  const product = await prisma.products.create({
+    data
+  });
+  return product;
+}
+
 export default {
   getById,
   getAll,
+  create
 }
