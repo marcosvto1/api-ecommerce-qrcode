@@ -19,6 +19,7 @@ model products {
   price       Float?
   qtdStock    Int?
   groupId     Int?
+  group       groups?  @relation(fields: [groupId], references: [id])
 }
 
 model orders {
@@ -26,4 +27,5 @@ model orders {
   productId    Int
   quantity     Int?
   freightPrice Float?
+  product      products  @relation(fields: [productId], references: [id])
 }

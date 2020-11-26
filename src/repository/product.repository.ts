@@ -22,11 +22,11 @@ async function create(data: product): Promise<products> {
 
 async function updateQtd(productId: number, quantity: number): Promise<products> {
   let product = await getById(productId)
-  product.qtdStock -= quantity
+  const qtd = product.qtdStock - quantity
 
   const updatedProduct = await prisma.products.update({
     where: {id: productId},
-    data: product
+    data: {qtdStock: qtd}
   })
 
   return updatedProduct
