@@ -32,6 +32,7 @@
     "@overnightjs/core": "^1.7.5",
     "@overnightjs/logger": "^1.2.0",
     "@prisma/client": "^2.11.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "qrcode": "^1.4.4"
   }
 }
