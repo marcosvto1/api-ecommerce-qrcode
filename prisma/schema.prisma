@@ -19,13 +19,11 @@ model products {
   price       Float?
   qtdStock    Int?
   groupId     Int?
-  order       order[]
 }
 
-model order {
-  id           Int      @unique
+model orders {
+  id           Int    @id @default(autoincrement())
   productId    Int
-  quantity     Int
-  freightPrice Float
-  products     products @relation(fields: [productId], references: [id])
+  quantity     Int?
+  freightPrice Float?
 }
