@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser';
 import { Server } from "@overnightjs/core";
 import { Logger } from '@overnightjs/logger';
 import { PrismaClient } from '@prisma/client';
+import { OrderController } from './controllers/order.controller';
 
 export class SetupServer extends Server {
 
@@ -13,14 +14,15 @@ export class SetupServer extends Server {
   }
   private setupController(): void {
     this.addControllers([
-      new ProductController()
+      new ProductController(),
+      new OrderController()
     ]);
   }
 
   private setupExpress(): void {
     this.app.use(bodyParser.json())
   }
- 
+
   public async close() {
     const prisma = new PrismaClient();
     await prisma.$disconnect();
