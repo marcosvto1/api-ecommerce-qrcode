@@ -1,7 +1,8 @@
 import { Controller, Get, Post } from "@overnightjs/core";
-import { Request, Response } from 'express'
+import { Request, Response } from 'express';
 import ProductRepository from '../repository/product.repository';
-import { product } from '../model/product'
+import { product } from '../model/product';
+import QRCode from 'qrcode';
 
 @Controller('products')
 export class ProductController {
@@ -16,6 +17,7 @@ export class ProductController {
         res.status(200).json(product);
       }
     } catch (error) {
+      console.error(error)
       res.sendStatus(500);
     }
   }
@@ -36,6 +38,20 @@ export class ProductController {
     try {
       const newProduct = await ProductRepository.create(productData)
       res.status(200).json(newProduct)
+    } catch (error) {
+      res.sendStatus(500)
+    }
+  }
+
+  @Post("qrcode")
+  generateQRCode(req: Request, res: Response) {
+    const { productId } = req.body
+    const productURL = `localhost:3000/products/${productId}`
+    try {
+      QRCode.toDataURL(productURL, function (err, url) {
+        if (err) console.error(err)
+        res.status(200).json({qrcode: url})
+      })
     } catch (error) {
       res.sendStatus(500)
     }
