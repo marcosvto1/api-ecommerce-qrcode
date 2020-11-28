@@ -9,7 +9,7 @@ enum ExitStatus {
 async function bootstrap() {
   try {
     const appServer = new SetupServer();
-    appServer.start(3000);
+    appServer.start(3001);
   
     // Signal
     const exitSignals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
