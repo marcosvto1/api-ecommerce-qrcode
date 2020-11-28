@@ -1,3 +1,7 @@
+import { Logger } from '@overnightjs/logger';
+import { product } from './../model/product';
+import { ordersCreateInput } from '@prisma/client';
+import { CreateOrderService } from './../services/create-order.service';
 import { Controller, Get, Post } from "@overnightjs/core";
 import { Request, Response } from 'express'
 import orderRepository from "../repository/order.repository";
@@ -7,19 +11,9 @@ import productRepository from "../repository/product.repository";
 export class OrderController {
   @Post()
   async createOrder(req: Request, res: Response) {
-    const { productId, quantity, freightPrice} = req.body
-
-    const product = {
-      connect: {id: productId}
-    }
-
-    const orderData = {product, quantity, freightPrice}
-
     try {
-
-      const newOrder = await orderRepository.create(orderData)
-      await productRepository.updateQtd(parseInt(productId), quantity)
-
+      const createOrderService = new CreateOrderService();
+      const newOrder = await createOrderService.create(req.body);
       res.status(200).json(newOrder)
     } catch (error) {
       console.error(error)
