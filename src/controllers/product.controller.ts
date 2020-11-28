@@ -1,3 +1,6 @@
+import { productsCreateInput } from '@prisma/client';
+import { Logger } from '@overnightjs/logger';
+import { CreateProductService } from './../services/create-product.service';
 import { Controller, Get, Post } from "@overnightjs/core";
 import { Request, Response } from 'express';
 import ProductRepository from '../repository/product.repository';
@@ -34,12 +37,14 @@ export class ProductController {
 
   @Post()
   async createProduct(req: Request, res: Response) {
-    const productData = req.body as product
+    const productData = req.body as productsCreateInput;
     try {
-      const newProduct = await ProductRepository.create(productData)
-      res.status(200).json(newProduct)
+      const createProductService = new CreateProductService();
+      const product = await createProductService.create(productData);
+      return res.status(200).json(product)
     } catch (error) {
-      res.sendStatus(500)
+      Logger.Err(error);
+      res.sendStatus(500);
     }
   }
 

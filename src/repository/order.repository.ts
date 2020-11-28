@@ -1,4 +1,4 @@
-import { PrismaClient, orders } from '@prisma/client'
+import { PrismaClient, orders, ordersCreateInput } from '@prisma/client'
 import { order } from '../model/order'
 
 const prisma = new PrismaClient();
@@ -13,7 +13,7 @@ function getAll() {
   return prisma.orders.findMany();
 }
 
-async function create(data: order): Promise<orders> {
+async function create(data: ordersCreateInput): Promise<orders> {
   const order = await prisma.orders.create({
     data
   });

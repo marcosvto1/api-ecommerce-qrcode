@@ -17,15 +17,24 @@ model products {
   description String?
   name        String?
   price       Float?
+  slug        String?
+  photoUrl    String?
   qtdStock    Int?
   groupId     Int?
   group       groups?  @relation(fields: [groupId], references: [id])
 }
 
 model orders {
-  id           Int    @id @default(autoincrement())
-  productId    Int
-  quantity     Int?
-  freightPrice Float?
-  product      products  @relation(fields: [productId], references: [id])
+  id              Int    @id @default(autoincrement())
+  quantity        Int?
+  freightPrice    Float?
+  orderProducts   orderProducts[]
+}
+
+model orderProducts {
+  id  Int @id @default(autoincrement())
+  productId Int
+  orderId Int
+  order orders @relation(fields: [orderId], references: [id])
+  product products @relation(fields: [productId], references: [id])
 }

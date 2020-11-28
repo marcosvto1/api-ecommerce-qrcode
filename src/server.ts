@@ -4,6 +4,7 @@ import { Server } from "@overnightjs/core";
 import { Logger } from '@overnightjs/logger';
 import { PrismaClient } from '@prisma/client';
 import { OrderController } from './controllers/order.controller';
+import { GroupController } from './controllers/group.controller';
 
 export class SetupServer extends Server {
 
@@ -15,7 +16,8 @@ export class SetupServer extends Server {
   private setupController(): void {
     this.addControllers([
       new ProductController(),
-      new OrderController()
+      new OrderController(),
+      new GroupController()
     ]);
   }
 

@@ -1,19 +1,24 @@
-import { PrismaClient, products } from '@prisma/client'
+import { PrismaClient, products, productsCreateInput } from '@prisma/client'
 import { product } from '../model/product'
 
 const prisma = new PrismaClient();
 
 function getById(id: number) {
   return prisma.products.findOne({
-    where: {id}
+    where: {id},
+    include: {group: true}
   })
 }
 
 function getAll() {
-  return prisma.products.findMany();
+  return prisma.products.findMany(
+    {
+      include: {'group': true}
+    }
+  );
 }
 
-async function create(data: product): Promise<products> {
+async function create(data: productsCreateInput): Promise<products> {
   const product = await prisma.products.create({
     data
   });
