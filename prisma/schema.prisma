@@ -7,6 +7,14 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+model users {
+  id  Int @id @default(autoincrement())
+  email String @unique
+  password String
+  role Int  @default(1)
+  accessToken String? 
+}
+
 model groups {
   id   Int     @id @default(autoincrement())
   name String?
@@ -24,10 +32,20 @@ model products {
   group       groups?  @relation(fields: [groupId], references: [id])
 }
 
+model customers {
+  id  Int @id @default(autoincrement())
+  name String
+  cpf String @unique
+  userId Int?
+  user users? @relation(fields: [userId], references: [id]) 
+}
+
 model orders {
   id              Int    @id @default(autoincrement())
-  quantity        Int?
+  totalPrice      Float?
   freightPrice    Float?
+  customerId      Int
+  customer        customers @relation(fields: [customerId], references: [id])
   orderProducts   orderProducts[]
 }
 
@@ -38,3 +56,4 @@ model orderProducts {
   order orders @relation(fields: [orderId], references: [id])
   product products @relation(fields: [productId], references: [id])
 }
+
