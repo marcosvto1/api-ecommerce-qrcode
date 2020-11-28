@@ -25,6 +25,23 @@ export class ProductController {
     }
   }
 
+  @Get(':slug')
+  async getProductBySlug(req: Request, res: Response) {
+    const { slug } = req.params;
+    try {
+      const product = await ProductRepository.getBySlug(slug);
+      if (!product) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).json(product);
+      }
+    } catch (error) {
+      console.error(error)
+      res.sendStatus(500);
+    }
+  }
+
+
   @Get()
   async getAllProducts(_req: Request, res: Response) {
     try {
