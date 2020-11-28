@@ -10,6 +10,16 @@ function getById(id: number) {
   })
 }
 
+function getBySlug(slug: string) {
+  return prisma.products.findFirst({
+    where: {
+      slug
+    },
+    include: {group: true}
+  })
+}
+
+
 function getAll() {
   return prisma.products.findMany(
     {
@@ -39,6 +49,7 @@ async function updateQtd(productId: number, quantity: number): Promise<products>
 
 export default {
   getById,
+  getBySlug,
   getAll,
   create,
   updateQtd
