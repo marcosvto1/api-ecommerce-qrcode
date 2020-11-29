@@ -54,10 +54,9 @@ export class ProductController {
 
   @Post()
   async createProduct(req: Request, res: Response) {
-    const productData = req.body as productsCreateInput;
     try {
       const createProductService = new CreateProductService();
-      const product = await createProductService.create(productData);
+      const product = await createProductService.create(req.body);
       return res.status(200).json(product)
     } catch (error) {
       Logger.Err(error);
