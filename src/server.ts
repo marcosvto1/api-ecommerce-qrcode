@@ -30,7 +30,7 @@ export class SetupServer extends Server {
     await prisma.$disconnect();
   }
 
-  public start(port: number): void {
+  public start(port): void {
     this.app.listen(port, () => {
       Logger.Imp('Server listening on port: ' + port);
     })
