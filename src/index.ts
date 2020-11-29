@@ -9,7 +9,7 @@ enum ExitStatus {
 async function bootstrap() {
   try {
     const appServer = new SetupServer();
-    appServer.start(process.env.POST || "3001");
+    appServer.start(process.env.PORT || "3001");
   
     // Signal
     const exitSignals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
