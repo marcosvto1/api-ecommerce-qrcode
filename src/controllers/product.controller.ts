@@ -25,7 +25,7 @@ export class ProductController {
     }
   }
 
-  @Get(':slug')
+  @Get('slug/:slug')
   async getProductBySlug(req: Request, res: Response) {
     const { slug } = req.params;
     try {
