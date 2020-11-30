@@ -1,11 +1,11 @@
 import { productsCreateInput } from '@prisma/client';
 import { Logger } from '@overnightjs/logger';
 import { CreateProductService } from './../services/create-product.service';
-import { Controller, Get, Post } from "@overnightjs/core";
+import { Controller, Get, Post, Put } from "@overnightjs/core";
 import { Request, Response } from 'express';
 import ProductRepository from '../repository/product.repository';
-import { product } from '../model/product';
 import QRCode from 'qrcode';
+import { UpdateProductService } from '../services/update-product.service';
 
 @Controller('products')
 export class ProductController {
@@ -41,6 +41,18 @@ export class ProductController {
     }
   }
 
+  @Put(':id')
+  async updateProduct(req: Request, res: Response) {
+    const {id} = req.params;
+    const data = req.body;
+    try {
+      const service = new UpdateProductService();
+      const product = await service.update(data, parseInt(id));
+      res.status(200).json(product);
+    } catch (error) {
+      res.sendStatus(500);
+    }
+  }
 
   @Get()
   async getAllProducts(_req: Request, res: Response) {
